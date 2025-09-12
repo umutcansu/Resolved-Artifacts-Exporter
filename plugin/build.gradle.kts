@@ -22,7 +22,7 @@ java {
 
 gradlePlugin {
     website = "https://github.com/umutcansu"
-
+    vcsUrl = "https://github.com/umutcansu/Resolved-Artifacts-Exporter.git"
     plugins {
         create("resolvedArtifactsExporterPlugin") {
             id = "com.thell.resolvedartifactsexporter"
