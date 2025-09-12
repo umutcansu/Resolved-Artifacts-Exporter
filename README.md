@@ -60,7 +60,9 @@ artifactsExporter {
     excludeGroups.set(listOf(
         "com\\.google\\..*",
         "androidx\\..*",
-        "org\\.jetbrains.*"
+        "org\\.jetbrains(\\..*)?.*",
+        "junit\\.*",
+        "org\\.hamcrest\\.*"
     ))
 
     // [Optional] To include only specific groups.
