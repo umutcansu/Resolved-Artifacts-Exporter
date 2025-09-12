@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.umutcansu"
-version = "1.0.9"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
