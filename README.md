@@ -31,9 +31,18 @@ Uploads artifacts to any Maven-compatible repository using standard HTTP PUT wit
 1. Apply the Plugin
 In your app module's build.gradle.kts file, add the plugin to your plugins block.
 
+
+//settings.gradle.kts
+```kotlin
+// settings.gradle.kts (project)
+pluginManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+```
+
 // app/build.gradle.kts
-
-
 ```kotlin
 // build.gradle.kts (app module)
 plugins {
@@ -87,3 +96,13 @@ After completing the configuration, run the following command from your project'
 | `password`      | `Property<String>`    |    Yes    | The password for repository authentication.                                        |
 | `includeGroups` | `ListProperty<String>` |    No     | A list of regex patterns. If not empty, only artifacts with a matching `groupId` will be included. |
 | `excludeGroups` | `ListProperty<String>` |    No     | A list of regex patterns. Artifacts with a matching `groupId` will be excluded.    |
+
+
+## 🛠️ Building and Publishing From Source
+If you have cloned this repository and want to build the plugin, modify it, or publish your own version to your private repository, you can use the following commands.
+
+First, ensure you have configured your repository credentials (e.g., nexusUser, sonatypeUsername) and GPG keys in your ~/.gradle/gradle.properties file.
+
+```bash
+./gradlew publish
+```

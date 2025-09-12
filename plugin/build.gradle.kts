@@ -1,14 +1,49 @@
 
 
+
 plugins {
     `java-gradle-plugin`
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     id("com.gradle.plugin-publish") version "1.2.1"
+    id("com.vanniktech.maven.publish") version "0.34.0"
+
 }
 
 group = "io.github.umutcansu"
-version = "1.0.1"
+version = "1.0.2"
+
+mavenPublishing {
+
+    pom {
+        name = "Resolved Artifacts Exporter Gradle Plugin"
+        description = "A plugin to find and export resolved dependencies to a Maven repository."
+        url = "https://github.com/umutcansu/Resolved-Artifacts-Exporter"
+        licenses {
+            license {
+                name.set("The MIT License")
+                url.set("http://www.opensource.org/licenses/mit-license.php")
+            }
+        }
+        developers {
+            developer {
+                id = "umutcansu"
+                name = "Umut Cansu"
+                email = "umutcansu@gmail.com"
+            }
+        }
+        scm {
+            url = "https://github.com/umutcansu/Resolved-Artifacts-Exporter"
+            connection = "scm:git:git://github.com/umutcansu/Resolved-Artifacts-Exporter.git"
+        }
+    }
+
+    signAllPublications()
+}
+
+mavenPublishing {
+    publishToMavenCentral(false)
+}
 
 repositories {
     mavenCentral()
