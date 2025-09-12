@@ -77,12 +77,6 @@ After completing the configuration, run the following command from your project'
 ./gradlew exportArtifacts
 ```
 
-Parameter	Type	Required?	Description
-url	Property<String>	Yes	The full URL of the target Maven repository.
-username	Property<String>	Yes	The username for repository authentication.
-password	Property<String>	Yes	The password for repository authentication.
-includeGroups	ListProperty<String>	No	A list of regex patterns. If not empty, only artifacts with a matching groupId will be included.
-excludeGroups	ListProperty<String>	No	A list of regex patterns. Artifacts with a matching groupId will be excluded.
 
 ## ⚙️ Configuration Options
 
