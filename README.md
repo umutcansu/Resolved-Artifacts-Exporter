@@ -32,7 +32,7 @@ Uploads artifacts to any Maven-compatible repository using standard HTTP PUT wit
 In your app module's build.gradle.kts file, add the plugin to your plugins block.
 
 
-//settings.gradle.kts
+
 ```kotlin
 // settings.gradle.kts (project)
 pluginManagement {
@@ -42,18 +42,17 @@ pluginManagement {
 }
 ```
 
-// app/build.gradle.kts
+
 ```kotlin
 // build.gradle.kts (app module)
 plugins {
-    id("com.thell.resolvedartifactsexporter") version "1.0.0"
+    id("io.github.umutcansu.resolvedartifactsexporter") version "1.0.0"
 }
 ```
 
 2. Configure the Plugin
 In the same build.gradle.kts file, create the artifactsExporter block to configure the plugin's settings.
 
-// app/build.gradle.kts
 ```kotlin
 artifactsExporter {
     // [Required] The URL of your target Maven repository.
@@ -89,13 +88,14 @@ After completing the configuration, run the following command from your project'
 
 ## ⚙️ Configuration Options
 
-| Parameter       | Type                  | Required? | Description                                                                        |
-| --------------- | --------------------- | :-------: | ---------------------------------------------------------------------------------- |
-| `url`           | `Property<String>`    |    Yes    | The full URL of the target Maven repository.                                       |
-| `username`      | `Property<String>`    |    Yes    | The username for repository authentication.                                        |
-| `password`      | `Property<String>`    |    Yes    | The password for repository authentication.                                        |
+| Parameter       | Type                   | Required? | Description                                                                        |
+|-----------------|------------------------| :-------: | ---------------------------------------------------------------------------------- |
+| `url`           | `Property<String>`     |    Yes    | The full URL of the target Maven repository.                                       |
+| `username`      | `Property<String>`     |    Yes    | The username for repository authentication.                                        |
+| `password`      | `Property<String>`     |    Yes    | The password for repository authentication.                                        |
 | `includeGroups` | `ListProperty<String>` |    No     | A list of regex patterns. If not empty, only artifacts with a matching `groupId` will be included. |
 | `excludeGroups` | `ListProperty<String>` |    No     | A list of regex patterns. Artifacts with a matching `groupId` will be excluded.    |
+| `pathPrefix`    | `Property<String>`     |    No     | An optional path prefix. If set, all artifacts will be uploaded into this sub-directory in the repository.    |
 
 
 ## 🛠️ Building and Publishing From Source

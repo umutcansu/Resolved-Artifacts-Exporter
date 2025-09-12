@@ -15,6 +15,7 @@ class ResolvedArtifactsExporterPlugin : Plugin<Project> {
             task.repoPassword.set(extension.password)
             task.includeGroups.set(extension.includeGroups)
             task.excludeGroups.set(extension.excludeGroups)
+            task.pathPrefix.set(extension.pathPrefix)
         }
     }
 }

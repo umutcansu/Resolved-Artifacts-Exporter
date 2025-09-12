@@ -28,6 +28,10 @@ abstract class ExportArtifactsTask : DefaultTask() {
     @get:Optional
     abstract val excludeGroups: ListProperty<String>
 
+    @get:Input
+    @get:Optional
+    abstract val pathPrefix: Property<String>
+
     init {
         group = "Publishing"
         description = "Finds, filters, and exports resolved dependencies to a Maven repository via HTTP PUT."
@@ -67,28 +71,32 @@ abstract class ExportArtifactsTask : DefaultTask() {
 
         logger.lifecycle(">> After filtering, ${filteredArtifacts.size} artifacts will be uploaded.")
 
+        val prefix = pathPrefix.getOrElse("")
         filteredArtifacts.forEach { artifact ->
-            uploadSingleArtifact(repoUrl.get(), repoUsername.get(), repoPassword.get(), artifact)
+            uploadSingleArtifact(repoUrl.get(), repoUsername.get(), repoPassword.get(), prefix, artifact)
         }
 
         logger.lifecycle(">> All export operations completed.")
     }
 
-    private fun uploadSingleArtifact(baseUrl: String, user: String, pass: String, artifact: ResolvedArtifact) {
+    private fun uploadSingleArtifact(baseUrl: String, user: String, pass: String, prefix: String, artifact: ResolvedArtifact) {
         val module = artifact.moduleVersion.id
         val groupPath = module.group.replace('.', '/')
-        val artifactPath = "${baseUrl.removeSuffix("/")}/$groupPath/${module.name}/${module.version}"
+
+        val finalPrefix = if (prefix.isNotBlank()) "${prefix.trim('/')}/" else ""
+        val artifactPath = "${baseUrl.removeSuffix("/")}/${finalPrefix}$groupPath/${module.name}/${module.version}"
+
         val artifactFileName = "${module.name}-${module.version}.${artifact.extension}"
         val pomFileName = "${module.name}-${module.version}.pom"
 
         val pomContent = """
-            <project>
-              <modelVersion>4.0.0</modelVersion>
-              <groupId>${module.group}</groupId>
-              <artifactId>${module.name}</artifactId>
-              <version>${module.version}</version>
-            </project>
-        """.trimIndent()
+        <project>
+          <modelVersion>4.0.0</modelVersion>
+          <groupId>${module.group}</groupId>
+          <artifactId>${module.name}</artifactId>
+          <version>${module.version}</version>
+        </project>
+    """.trimIndent()
 
         val pomUrl = "$artifactPath/$pomFileName"
         val artifactUrl = "$artifactPath/$artifactFileName"
@@ -99,6 +107,7 @@ abstract class ExportArtifactsTask : DefaultTask() {
             }
         }
     }
+
 
     private fun httpPut(urlString: String, user: String, pass: String, data: ByteArray): Boolean {
         try {

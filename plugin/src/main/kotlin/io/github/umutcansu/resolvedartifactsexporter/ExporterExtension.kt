@@ -12,9 +12,11 @@ abstract class ExporterExtension @Inject constructor() {
 
     abstract val includeGroups: ListProperty<String>
     abstract val excludeGroups: ListProperty<String>
+    abstract val pathPrefix: Property<String>
 
     init {
         includeGroups.convention(emptyList())
         excludeGroups.convention(emptyList())
+        pathPrefix.convention("")
     }
 }
