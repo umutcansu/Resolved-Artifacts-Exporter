@@ -1,4 +1,4 @@
-package com.thell
+package io.github.umutcansu.resolvedartifactsexporter
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
