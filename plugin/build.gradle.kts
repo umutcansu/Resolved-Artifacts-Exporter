@@ -10,11 +10,15 @@ plugins {
 
 }
 
-group = "io.github.umutcansu"
-version = "1.0.3"
+group = "io.github.umutcansu.resolvedartifactsexporter"
+version = "1.0.4"
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
 mavenPublishing {
-
     pom {
         name = "Resolved Artifacts Exporter Gradle Plugin"
         description = "A plugin to find and export resolved dependencies to a Maven repository."
@@ -45,15 +49,6 @@ mavenPublishing {
     publishToMavenCentral(false)
 }
 
-repositories {
-    mavenCentral()
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 gradlePlugin {
     website = "https://github.com/umutcansu"
     vcsUrl = "https://github.com/umutcansu/Resolved-Artifacts-Exporter.git"
@@ -64,7 +59,7 @@ gradlePlugin {
 
             displayName = "Resolved Artifacts Exporter Plugin"
             description = "A plugin to find and export resolved dependencies to a Maven repository."
-            tags.set(listOf("dependency", "exporter", "maven", "nexus", "repository"))
+            tags = listOf("dependency", "exporter", "maven", "nexus", "repository")
         }
     }
 }
@@ -84,11 +79,6 @@ publishing {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
-dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
